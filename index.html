@@ -1,0 +1,2 @@
+<!doctype html><meta charset="utf-8"><title>Loading…</title><script>
+(async()=>{const parts=['site.part00','site.part01','site.part02','site.part03'];let s='';for(const p of parts){const r=await fetch(p);if(!r.ok)throw Error(p);s+=await r.text()}document.open();document.write(s);document.close()})().catch(e=>document.body.textContent='تعذر تحميل الموقع: '+e)</script>
