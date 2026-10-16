@@ -1,120 +1,63 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#075e54">
-  <title>جارٍ تحميل موقع صادق المرغمي</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 22px;
-      background: #d8e0db;
-      color: #23343d;
-      font-family: Tahoma, Arial, sans-serif;
-    }
-    .card {
-      width: min(100%, 440px);
-      padding: 28px 22px;
-      border-radius: 18px;
-      background: #efeae2;
-      box-shadow: 0 8px 35px #0002;
-      text-align: center;
-    }
-    .mark {
-      display: grid;
-      place-items: center;
-      width: 52px;
-      height: 52px;
-      margin: 0 auto 14px;
-      border-radius: 50%;
-      background: #075e54;
-      color: #fff;
-      font-size: 24px;
-      font-weight: 700;
-    }
-    h1 { margin: 0 0 10px; color: #075e54; font-size: 19px; }
-    p { margin: 0 0 18px; font-size: 14px; line-height: 1.8; }
-    .track {
-      height: 10px;
-      overflow: hidden;
-      border-radius: 999px;
-      background: #d8e0db;
-    }
-    #fill {
-      width: 0;
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, #128c7e, #075e54);
-      transition: width .25s ease;
-    }
-    #status { display: block; margin-top: 10px; color: #647781; font-size: 12px; }
-    #retry {
-      display: none;
-      margin-top: 18px;
-      padding: 10px 18px;
-      border: 0;
-      border-radius: 10px;
-      background: #075e54;
-      color: #fff;
-      font: inherit;
-      cursor: pointer;
-    }
-    small { display: block; margin-top: 16px; color: #647781; font-size: 11px; }
-    @media (prefers-reduced-motion: reduce) { #fill { transition: none; } }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#075e54">
+<title>صادق المرغمي | SADIQ AL-MARGHAMI</title>
+<style>
+:root{--green:#075e54;--accent:#128c7e;--wall:#efeae2;--ink:#23343d;--muted:#647781;--line:#e5e0d8}
+*{box-sizing:border-box}
+body{margin:0;background:#d8e0db;color:var(--ink);font-family:Tahoma,Arial,sans-serif;min-height:100vh;display:flex;justify-content:center}
+.app{width:100%;max-width:760px;min-height:100vh;background:var(--wall);display:flex;flex-direction:column;box-shadow:0 8px 35px #0002}
+header{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--green);color:#fff;position:sticky;top:0;z-index:2}
+.admin-entry{background:#fff;color:var(--green);border:1px solid #d6f2e9;border-radius:8px;padding:8px 10px;font-size:12px;font-weight:bold;white-space:nowrap;margin-right:auto}.avatar img{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%}.avatar{width:46px;height:46px;flex:none;border-radius:50%;display:grid;place-items:center;background:#ffffff22;border:1px solid #ffffff55;font-size:22px}
+header h1{font-size:16px;margin:0 0 5px}header p{font-size:12px;color:#d6f2e9;margin:0}.status{margin-right:auto;font-size:11px;color:#d6f2e9;white-space:nowrap}
+main{flex:1;padding:14px;display:flex;flex-direction:column;gap:13px;background-color:var(--wall);background-image:radial-gradient(#cfc8bc 0.65px,transparent .65px);background-size:18px 18px}
+#cover{width:100%;aspect-ratio:1.6;object-fit:cover;display:block;border-radius:12px;border:1px solid #ffffff90}
+.intro{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px;font-size:13px;line-height:1.9;color:#465a63}
+#chat{display:flex;flex-direction:column;gap:10px}
+.bubble{max-width:94%;padding:11px 13px;border-radius:14px;line-height:1.95;white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px}
+.bot{align-self:flex-start;background:#fff;border:1px solid #e7e2da;border-bottom-right-radius:4px;box-shadow:0 1px 1px #0000000a}
+.user{align-self:flex-end;background:#d9fdd3;border:1px solid #c5edbd;border-bottom-left-radius:4px;box-shadow:0 1px 1px #0000000a}
+.sender{font-size:10px;color:#72818a;margin-bottom:4px}
+#action{border:1px solid var(--line);border-radius:12px;padding:14px;background:#fff}
+#action h2{font-size:15px;color:var(--green);margin:0 0 7px}
+#action p{font-size:12px;line-height:1.8;color:var(--muted);margin:0 0 10px}
+.typing-indicator{font-size:13px;font-weight:600;color:#1687ff;min-height:20px;margin:0 0 4px;text-align:right}
+label{display:block;font-size:13px;margin:8px 0 4px}
+input,textarea,select{width:100%;padding:12px;border:1px solid #cbd9d6;border-radius:9px;font:inherit;font-size:14px;margin:4px 0 10px;color:var(--ink);background:#fff}
+button{font:inherit;font-size:14px;border:0;border-radius:9px;padding:12px 14px;cursor:pointer}
+button:focus,input:focus{outline:2px solid #72b8ae;outline-offset:1px}
+.primary{background:var(--accent);color:#fff;width:100%;font-weight:bold}.primary:disabled{opacity:.55;cursor:not-allowed}.send-button{width:48px;height:48px;padding:0;border-radius:50%;font-size:25px;line-height:1;display:block;margin:8px 0 0 auto}
+.light{background:#edf4f2;border:1px solid #d4e2de;color:var(--green)}
+.options{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.options button{flex:1 1 42%;background:#e7f4e4;border:1px solid #cce8c6;color:#174c42;min-height:44px}
+.row{display:flex;gap:8px}.row button{flex:1}
+.small{font-size:11px;color:var(--muted);line-height:1.8}
+.whatsapp{display:block;text-decoration:none;background:#25d366;color:#063b20;text-align:center;font-weight:bold;border-radius:10px;padding:14px;margin-top:8px}
+.success-line{display:block;margin-top:4px;font-size:12px;font-weight:normal;color:var(--accent)}
+.hidden{display:none!important}
+footer{text-align:center;padding:12px;border-top:1px solid #ded8cf;background:#f7f3ed;font-size:11px;color:#71849a}
+@media(max-width:480px){main{padding:10px}.bubble{max-width:100%;font-size:13px}header h1{font-size:15px}.status{display:none}}
+</style>
 </head>
 <body>
-  <main class="card" aria-live="polite">
-    <div class="mark" aria-hidden="true">ص</div>
-    <h1>صادق المرغمي</h1>
-    <p id="message">جارٍ تحميل الصفحة كاملة. قد يستغرق ذلك لحظات بحسب سرعة الاتصال.</p>
-    <div class="track" id="track" role="progressbar" aria-label="تقدّم التحميل" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0">
-      <div id="fill"></div>
-    </div>
-    <span id="status">جارٍ الاتصال بملفات الموقع…</span>
-    <button id="retry" type="button" onclick="location.reload()">إعادة المحاولة</button>
-    <small>أبقِ الصفحة مفتوحة حتى يكتمل التحميل.</small>
-    <noscript>يتطلب عرض الموقع تفعيل JavaScript في المتصفح.</noscript>
-  </main>
-  <script>
-    (async () => {
-      const parts = ["site.part00", "site.part01", "site.part02", "site.part03"];
-      const message = document.getElementById("message");
-      const status = document.getElementById("status");
-      const fill = document.getElementById("fill");
-      const track = document.getElementById("track");
-      const retry = document.getElementById("retry");
-      const siteRoot = new URL(".", location.href);
-      let complete = 0;
+<div class="app">
+<header><div class="avatar"><img src="assets/logo.webp" alt="شعار صادق المرغمي"></div><div><h1>صادق المرغمي</h1><p>معك في كل سؤال</p></div><button type="button" class="admin-entry" onclick="openAdmin()">لوحة التحكم</button></header>
+<main>
+<img id="cover" alt="أهلًا بك، لنبدأ رحلتك خطوة بخطوة نحو فرصتك الجديدة" src="assets/cover.webp">
+<div class="intro" id="intro">أهلًا وسهلًا بك 🌹</div>
+<div id="chat" aria-live="polite"></div>
+<div id="action">
+<h2>أهلًا وسهلًا بك</h2>
+<p>أرسل رسالتك لبدء الحديث.</p>
+<button class="primary" onclick="begin()">أرغب بمعرفة تفاصيل فرصة العمل</button>
+</div>
 
-      try {
-        const chunks = await Promise.all(parts.map(async (part, index) => {
-          const response = await fetch(new URL(part, siteRoot));
-          if (!response.ok) throw new Error(`تعذر تحميل الجزء ${index + 1} (${response.status})`);
-          const content = await response.text();
-          complete += 1;
-          track.setAttribute("aria-valuenow", String(complete));
-          fill.style.width = `${(complete / parts.length) * 100}%`;
-          status.textContent = `اكتمل تنزيل ${complete} من ${parts.length} أجزاء…`;
-          return content;
-        }));
-
-        status.textContent = "اكتمل التحميل، جارٍ فتح الصفحة…";
-        document.open();
-        document.write(chunks.join(""));
-        document.close();
-      } catch (error) {
-        message.textContent = "تعذر تحميل الصفحة كاملة. تحقق من اتصال الإنترنت ثم أعد المحاولة.";
-        status.textContent = error instanceof Error ? error.message : "حدث خطأ غير متوقع أثناء التحميل.";
-        track.hidden = true;
-        retry.style.display = "inline-block";
-      }
-    })();
-  </script>
+</main>
+<footer onclick="hiddenAdminTap()" title="">SADIQ AL-MARGHAMI</footer>
+</div>
+<script src="assets/app.js" defer></script>
 </body>
 </html>
