@@ -1,2 +1,120 @@
-<!doctype html><meta charset="utf-8"><title>Loading…</title><script>
-(async()=>{const parts=['site.part00','site.part01','site.part02','site.part03'];let s='';for(const p of parts){const r=await fetch(p);if(!r.ok)throw Error(p);s+=await r.text()}document.open();document.write(s);document.close()})().catch(e=>document.body.textContent='تعذر تحميل الموقع: '+e)</script>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#075e54">
+  <title>جارٍ تحميل موقع صادق المرغمي</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 22px;
+      background: #d8e0db;
+      color: #23343d;
+      font-family: Tahoma, Arial, sans-serif;
+    }
+    .card {
+      width: min(100%, 440px);
+      padding: 28px 22px;
+      border-radius: 18px;
+      background: #efeae2;
+      box-shadow: 0 8px 35px #0002;
+      text-align: center;
+    }
+    .mark {
+      display: grid;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      margin: 0 auto 14px;
+      border-radius: 50%;
+      background: #075e54;
+      color: #fff;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    h1 { margin: 0 0 10px; color: #075e54; font-size: 19px; }
+    p { margin: 0 0 18px; font-size: 14px; line-height: 1.8; }
+    .track {
+      height: 10px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #d8e0db;
+    }
+    #fill {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #128c7e, #075e54);
+      transition: width .25s ease;
+    }
+    #status { display: block; margin-top: 10px; color: #647781; font-size: 12px; }
+    #retry {
+      display: none;
+      margin-top: 18px;
+      padding: 10px 18px;
+      border: 0;
+      border-radius: 10px;
+      background: #075e54;
+      color: #fff;
+      font: inherit;
+      cursor: pointer;
+    }
+    small { display: block; margin-top: 16px; color: #647781; font-size: 11px; }
+    @media (prefers-reduced-motion: reduce) { #fill { transition: none; } }
+  </style>
+</head>
+<body>
+  <main class="card" aria-live="polite">
+    <div class="mark" aria-hidden="true">ص</div>
+    <h1>صادق المرغمي</h1>
+    <p id="message">جارٍ تحميل الصفحة كاملة. قد يستغرق ذلك لحظات بحسب سرعة الاتصال.</p>
+    <div class="track" id="track" role="progressbar" aria-label="تقدّم التحميل" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0">
+      <div id="fill"></div>
+    </div>
+    <span id="status">جارٍ الاتصال بملفات الموقع…</span>
+    <button id="retry" type="button" onclick="location.reload()">إعادة المحاولة</button>
+    <small>أبقِ الصفحة مفتوحة حتى يكتمل التحميل.</small>
+    <noscript>يتطلب عرض الموقع تفعيل JavaScript في المتصفح.</noscript>
+  </main>
+  <script>
+    (async () => {
+      const parts = ["site.part00", "site.part01", "site.part02", "site.part03"];
+      const message = document.getElementById("message");
+      const status = document.getElementById("status");
+      const fill = document.getElementById("fill");
+      const track = document.getElementById("track");
+      const retry = document.getElementById("retry");
+      const siteRoot = new URL(".", location.href);
+      let complete = 0;
+
+      try {
+        const chunks = await Promise.all(parts.map(async (part, index) => {
+          const response = await fetch(new URL(part, siteRoot));
+          if (!response.ok) throw new Error(`تعذر تحميل الجزء ${index + 1} (${response.status})`);
+          const content = await response.text();
+          complete += 1;
+          track.setAttribute("aria-valuenow", String(complete));
+          fill.style.width = `${(complete / parts.length) * 100}%`;
+          status.textContent = `اكتمل تنزيل ${complete} من ${parts.length} أجزاء…`;
+          return content;
+        }));
+
+        status.textContent = "اكتمل التحميل، جارٍ فتح الصفحة…";
+        document.open();
+        document.write(chunks.join(""));
+        document.close();
+      } catch (error) {
+        message.textContent = "تعذر تحميل الصفحة كاملة. تحقق من اتصال الإنترنت ثم أعد المحاولة.";
+        status.textContent = error instanceof Error ? error.message : "حدث خطأ غير متوقع أثناء التحميل.";
+        track.hidden = true;
+        retry.style.display = "inline-block";
+      }
+    })();
+  </script>
+</body>
+</html>
